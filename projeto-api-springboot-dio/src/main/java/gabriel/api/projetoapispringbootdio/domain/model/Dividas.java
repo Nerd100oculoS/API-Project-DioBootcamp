@@ -15,6 +15,10 @@ public class Dividas {
 
     private String status;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
     @Column(name = "data_vencimento")
     private Date dataVencimento;
 
@@ -48,5 +52,13 @@ public class Dividas {
 
     public void setDataVencimento(Date dataVencimento) {
         this.dataVencimento = dataVencimento;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }
