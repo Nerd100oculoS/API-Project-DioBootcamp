@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 @Service
 public class ClienteServiceImp implements ClienteService {
 
     private final ClienteRepository clienteRepository;
 
+    @Autowired
     public ClienteServiceImp(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
@@ -22,15 +25,18 @@ public class ClienteServiceImp implements ClienteService {
         return clienteRepository.findAll();
     }
 
+    @Override
     public Cliente findClienteById(Long id) {
         return clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o ID: " + id));
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + id));
     }
 
+    @Override
     public Cliente saveCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
 
+    @Override
     public void deleteCliente(Long id) {
         clienteRepository.deleteById(id);
     }
